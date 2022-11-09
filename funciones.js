@@ -1,66 +1,34 @@
 const path = require("path");
-const resolve = require("path");
- const fs = require("fs");
+const fs = require("fs");
 
 const ruta = process.argv[2];
 
-//Comprobar sincrónicamente si existe un archivo
+//Comprobar sincrónicamente si existe path
 
-function existePath(path){
-  const pathExiste = fs.existsSync(path);
+function existePath(mypath){
+  const pathExiste = fs.existsSync(mypath);
    if (!pathExiste) {
-    console.log("fs.exiatsSync no es" +"no esxite path " );
-   }
-   console.log(existePath)
+    console.error("la ruta no existe");
+    return;
+    
+   } 
   
 }
+console.log(existePath(mypath));
+
 //evRuta= evaluando la ruta
-const rutAbsolut =(path)=>{
- const evRuta = path.isAbsolute(path); 
+const rutAbsolut =(mypath)=>{
+ const evRuta = path.isAbsolute(mypath); 
  if (!evRuta){
-  const cvRut = path.resolve(path);
+  const cvRut = path.resolve(mypath);
   return cvRut;
  } 
- const cvRut= path
- return cvRut
+ const cvRut= mypath;
+ return cvRut;
 }
-console.log(rutAbsolut());
+console.log(rutAbsolut(ruta));
 
 
-// console.log(ruta);
-// const evRuta = path.isAbsolute(ruta); 
-// if (!path.isAbsolute(ruta)) {
-//   let cvRuta= path.resolve(ruta)
-//   console.log(cvRuta);
-// }else{
-
-// }
-//es un directorio?
-fs.stat("./", (err, stats) => {
-  if (err) throw err;
-  // console.log(`stats: ${JSON.stringify(stats)}`);
-  console.log(stats.isDirectory());
-});
-
-fs.stat("./", (err, stats) => {
-  if (err) throw err;
-  // console.log(`stats: ${JSON.stringify(stats)}`);
-  if (stats.isDirectory()) {
-    console.log("fs.Stats describes a " + "file system directory");
-  } else {
-    console.log("fs.Stats does not " + "describe a file system directory");
-  }
-});
-
-// const inRuta = (path) => {
-// if (path === ""){
-// alert (" la ruta no existe")
-// } else if (!evRuta) {
-//   path.resolve(ruta); 
-// } 
-
-// }
-// console.log(inRuta);
 
 
 
@@ -72,3 +40,61 @@ fs.stat("./", (err, stats) => {
   //   }
   //   console.log(data);
   // });
+
+  // const buscarRutasMds = (ruta) => {
+  //   let arrayMds = []
+  //   if(fs.statSync(ruta).isFile() && path.extname(ruta) === '.md') {
+  //     	arrayMds.push(ruta);
+  //   }else if(fs.statSync(ruta).isFile() && path.extname(ruta) !== '.md'){
+  //     console.log('este no es un archivo md');
+  //   }else {
+  //     const elementos = fs.readdirSync(ruta)
+
+  //     console.log('ver los elementos del directorio: ', elementos);
+
+  //   }
+  //   console.log(arrayMds);
+  //   return arrayMds;
+  // }
+
+  // buscarRutasMds(rutAbsolut(ruta));
+  
+  const buscarRutasMds = (ruta) => {
+    let arrayMds = [];
+    if (fs.statSync(ruta).isFile() && path.extname(ruta) === ".md") {
+      arrayMds.push(ruta);
+    } else if (fs.statSync(ruta).isFile() && path.extname(ruta) !== ".md") {
+      console.log("este no es un archivo md");
+    } else {
+      const elementos = fs.readdirSync(ruta);
+      let subelemtos = [];
+      elementos.forEach((elemento) => {
+        const filtradoArchivo = path.join(ruta, elemento);
+        console.log(filtradoArchivo);
+        if (fs.statSync(filtradoArchivo).isDirectory()) {
+          subelemtos = subelemtos.concat(buscarRutasMds(filtradoArchivo));
+          console.log("estos es subelemento",subelemtos);
+        }
+      });
+      const archivoRuta = elementos
+        .filter((elemento) => {
+          const filtradoArchivo = path.join(ruta, elemento);
+          const Archivomd =
+            fs.statSync(filtradoArchivo).isFile() &&
+            path.extname(filtradoArchivo) === ".md";
+          console.log("filtrado", filtradoArchivo, Archivomd);
+          return Archivomd;
+        })
+        .map((elemento) => {
+          return path.join(ruta, elemento);
+        });
+      //console.log('ver los elementos del directorio: ', archivoRuta);
+      return archivoRuta.concat(subelemtos);
+    }
+    console.log(arrayMds);
+    return arrayMds;
+  };
+  console.log(
+    "ver los elementos del directorio: ",
+    buscarRutasMds(rutAbsolut(ruta))
+  );

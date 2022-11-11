@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs");
+marked = require("marked");
+const axios = require("axios");
 
 const ruta = process.argv[2];
 
@@ -16,7 +18,7 @@ function existePath(path){
    }
   
 }
-console.log(existePath(ruta));
+// console.log(existePath(ruta));
 
 //evRuta= evaluando la ruta
 const rutAbsolut =(mypath)=>{
@@ -28,7 +30,7 @@ const rutAbsolut =(mypath)=>{
  const cvRut= mypath;
  return cvRut;
 }
-console.log("esta es mi ruta aabsoluta",rutAbsolut(ruta));
+// console.log("esta es mi ruta aabsoluta",rutAbsolut(ruta));
 
 
 const buscarRutasMds = (ruta) => {
@@ -74,9 +76,50 @@ console.log(
  
   // console.log("Leer contenido", procesArchivo(file));
 
-  module.exports= {rutAbsolut }
+// Leer los archivos .md
+function leerArchivo(archivoMD) {
+ let arrayLinks = []
+  return new Promise ((resolve, reject)=>{
+    fs.readFile(archivoMD, 'utf-8', (err, data) => {
+      if (err) {
+        resolve(err);
+      }
+      // Extraer links 
 
- 
+      const renderer = new marked.Renderer()
+      renderer.link = function (href, file, text) {
+        const linkPropiedades = {
+          'href': href,
+          'text': text.split('').slice(0, 50).join(''),
+          'file': archivoMD
+        }
 
-  
+        if (linkPropiedades.href.includes('http')) {
+          arrayLinks.push(linkPropiedades)
+        }
+
+      }
+      marked.marked(data, { renderer })
+      resolve(arrayLinks)
+    })
+    })
+
+  }
+
+
+ function leerTodosArchivos(arrayMds) {
+   let arrPromesas = [];
+   arrPromesas = arrayMds.map((archivoMD) => {
+     return leerArchivo(archivoMD);
+   });
+
+   return Promise.all(arrPromesas).then((res) => res);
+ }
+ leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta))).then((response) =>
+   console.log("veeeeer: ", response)
+ );
+
+
+
+
   

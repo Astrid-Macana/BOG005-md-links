@@ -1,34 +1,7 @@
-const path = require("path");
-const fs = require("fs");
-
+ const {rutAbsolut} = require ("./funciones.js");
+ const path = require("path");
+ const fs = require("fs");
 const ruta = process.argv[2];
-
-//Comprobar sincrónicamente si existe path
-
-function existePath(path){
-  const pathExiste = fs.existsSync(path);
-   if (pathExiste) {
-    return true
-    
-   } else{
-    console.error("la ruta no existe");
-
-   }
-  
-}
-console.log(existePath(ruta));
-
-//evRuta= evaluando la ruta
-const rutAbsolut =(mypath)=>{
- const evRuta = path.isAbsolute(mypath); 
- if (!evRuta){
-  const cvRut = path.resolve(mypath);
-  return cvRut;
- } 
- const cvRut= mypath;
- return cvRut;
-}
-console.log("esta es mi ruta aabsoluta",rutAbsolut(ruta));
 
 
 const buscarRutasMds = (ruta) => {
@@ -71,12 +44,26 @@ console.log(
   buscarRutasMds(rutAbsolut(ruta))
 );
 
- 
-  // console.log("Leer contenido", procesArchivo(file));
+function leerArchivo(archivoMD) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(archivoMD, "utf-8", (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
 
-  module.exports= {rutAbsolut }
+function leerTodosArchivos(arrayMds) {
+  let arrPromesas = [];
+  arrPromesas = arrayMds.map((archivoMD) => {
+    return leerArchivo(archivoMD);
+  });
 
- 
-
-  
-  
+  return Promise.all(arrPromesas).then((res) => res);
+}
+leerTodosArchivos(buscarRutasMds(rutAbsoluta(ruta))).then((response) =>
+  console.log("veeeeer: ", response)
+);

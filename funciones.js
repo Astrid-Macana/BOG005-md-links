@@ -1,7 +1,8 @@
 const path = require("path");
 const fs = require("fs");
-marked = require("marked");
 const axios = require("axios");
+marked = require("marked");
+
 
 const ruta = process.argv[2];
 
@@ -68,10 +69,10 @@ const buscarRutasMds = (ruta) => {
   // console.log(arrayMds);
   return arrayMds;
 };
-console.log(
-  "ver los elementos del directorio: ",
-  buscarRutasMds(rutAbsolut(ruta))
-);
+// console.log(
+//   "ver los elementos del directorio: ",
+//   buscarRutasMds(rutAbsolut(ruta))
+// );
 
  
   // console.log("Leer contenido", procesArchivo(file));
@@ -107,19 +108,44 @@ function leerArchivo(archivoMD) {
   }
 
 
+
  function leerTodosArchivos(arrayMds) {
    let arrPromesas = [];
    arrPromesas = arrayMds.map((archivoMD) => {
      return leerArchivo(archivoMD);
    });
 
-   return Promise.all(arrPromesas).then((res) => res);
+   return Promise.all(arrPromesas).then((res) => res.flat());
  }
- leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta))).then((response) =>
-   console.log("veeeeer: ", response)
- );
+
+ 
 
 
+function validarLink(arrayObjetos) {
+  let arrPromesas = [];
+  arrPromesas = arrayObjetos.map((objeto) => {
+    return axios
+      .get(objeto.href)
+      .then((res) => {
+        console.log("AXIOSSSSSSS", res.status);
+          objeto.status = res.status;
+          objeto.mensaje = "ok";
+          return objeto;
 
+      })
+      .catch((err) => {
+        objeto.status = 404;
+        objeto.mensaje = "Fail";
+        return objeto;
+      });
+  });
 
-  
+  return  Promise.all(arrPromesas).then(res=>res)
+  }
+//  validarLink(Links).then(res=>console.log(res))
+
+ leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
+ .then(resAll=>validarLink(resAll))
+ .then(res=>console.log('soy yo: ', res))
+
+//  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos}

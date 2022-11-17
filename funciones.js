@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
-marked = require("marked");
+const marked = require("marked");
 
 
 const ruta = process.argv[2];
@@ -127,7 +127,7 @@ function validarLink(arrayObjetos) {
     return axios
       .get(objeto.href)
       .then((res) => {
-        console.log("AXIOSSSSSSS", res.status);
+        // console.log("AXIOSSSSSSS", res.status);
           objeto.status = res.status;
           objeto.mensaje = "ok";
           return objeto;
@@ -144,8 +144,8 @@ function validarLink(arrayObjetos) {
   }
 //  validarLink(Links).then(res=>console.log(res))
 
- leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
- .then(resAll=>validarLink(resAll))
- .then(res=>console.log('soy yo: ', res))
+//  leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
+//  .then(resAll=>validarLink(resAll))
+//  .then(res=>console.log('soy yo: ', res))
 
-//  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos}
+  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos,validarLink}

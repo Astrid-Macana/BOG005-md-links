@@ -140,12 +140,13 @@ function validarLink(arrayObjetos) {
       });
   });
 
-  return  Promise.all(arrPromesas).then(res=>res)
+   const arrPro = Promise.all(arrPromesas).then(res=>res)
+   return arrPro
   }
 //  validarLink(Links).then(res=>console.log(res))
 
-//  leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
-//  .then(resAll=>validarLink(resAll))
-//  .then(res=>console.log('soy yo: ', res))
+ leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
+ .then(resAll=>validarLink(resAll))
+ .then(res=>console.log('soy yo: ', res))
 
-  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos,validarLink}
+  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos,validarLink,}

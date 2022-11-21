@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
-const marked = require("marked");
+const marked = require("marked");;
 
 
 const ruta = process.argv[2];
@@ -145,8 +145,39 @@ function validarLink(arrayObjetos) {
   }
 //  validarLink(Links).then(res=>console.log(res))
 
- leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
- .then(resAll=>validarLink(resAll))
- .then(res=>console.log('soy yo: ', res))
+//  leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
+//  .then(resAll=>validarLink(resAll))
+//  .then(res=>console.log('soy yo: ', res))
 
-  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos,validarLink,}
+// estadisticas de los link
+  const totalLink = (arrProp) => {
+    return {
+      Total: arrProp.length,
+      unique: new Set(arrProp.map((arrayobjetos) => arrayobjetos.href)).size,
+    };
+  };
+
+  
+
+  const estadoLink = (arrProp) => {
+    const linkRto = arrProp.filter((link) => link.status == 404).length;
+    return {
+      Total: arrProp.length,
+      unique: new Set(arrProp.map((arrayObjetos) => arrayObjetos.href)).size,
+      Broken: linkRto,
+    };
+  };
+
+  //  leerTodosArchivos(buscarRutasMds(rutAbsolut(ruta)))
+  //    .then((resAll) => {
+  //      validarLink(resAll).then((response)=>{
+  //        totalLink(response)
+  //        console.log(totalLink(response),175);
+  //        estadoLink(response)
+  //        console.table(estadoLink(response))
+  //      })
+  //       console.log(validarLink(resAll), 174);
+  //    })
+    // totalLink(validarLink(resAll)).then((res) => console.log("estadisca link: ", res));
+
+  module.exports = {rutAbsolut,buscarRutasMds,leerTodosArchivos,validarLink,totalLink,estadoLink}

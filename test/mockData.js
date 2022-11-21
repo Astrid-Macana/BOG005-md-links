@@ -2,7 +2,7 @@ const mockData = {
   pathUser: "test\\probando.md",
   dataValidaFalso: [
     {
-      href: "https://majoledesm.github.io/apuntes/",
+      href: "https://majoledesm.github.io/apunt/",
       text: "https://majoledesm.github.io/apuntes/",
       file: "C:\\Users\\LABORATORIA\\Desktop\\Proyectos\\Proyecto 4\\BOG005-md-links\\prueba\\file.md",
       status: 404,
@@ -20,4 +20,4 @@ const mockData = {
     },
   ],
 };
-module.export = mockData;
+module.exports = { mockData };

@@ -5,15 +5,12 @@ const { axios } = require("axios");
 jest.mock("axios");
 
 describe("mdLinks", () => {
-  it("Md-Links guarda los archivos .md y valida:true y retorna un array de objetos", () => {
-    return mdLinks("test\\probando.md", (options = { validate: true })).then(
-      (res) => {
-        console.log(mockData.pathUser);
-        expect(res).toEqual(mockData.dataValidaFalso);
+  it("Md-Links guarda los archivos .md y valida:true y retorna un array de objetos", async () => {
+    expect(mdLinks("test\\probando.md", (options = { validate: true }))).resolves.toEqual(mockData.dataValidaFalso)
+        
       }
     );
   });
-});
 
 // describe('mdLinks', () => {
 //   it('Md-Links guarda los archivos .md y valida:true y retorna un array de objetos', () => {

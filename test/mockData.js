@@ -30,4 +30,5 @@ const mockData = {
     },
   ],
 };
+
 module.exports = { mockData };

@@ -6,8 +6,11 @@ jest.mock("axios");
 
 describe("mdLinks", () => {
   it("Md-Links guarda los archivos .md y valida:true y retorna un array de objetos", () => {
+      
     jest.setTimeout(3000);
-    mdLinks("test\\probando.md", (options = { validate: true})).toStrictEqual(mockData.dataValidaVerdadero).then((res)=>expect(res));
+         mdLinks("test\\probando.md", (options = { validate: true }))
+         .then((res) => expect(res).toStrictEqual(mockData.dataValidaFalso));
+         
   });
 });
 

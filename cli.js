@@ -6,9 +6,9 @@ const ruta = process.argv[2];
 const arg= process.argv
 
 const cli = (ruta,arg) =>{
-    // if(ruta===undefined){
-    //     console.log('ingresa una ruta')
-    if (arg.includes('--stats') && arg.includes('--validate')){
+     if(ruta===undefined){
+         console.log('ingresa una ruta')
+     } else if (arg.includes('--stats') && arg.includes('--validate')){
         (mdLinks(ruta, (options = { validate: true })).then((res) =>{console.table(estadoLink(res))}))
     }else if(arg.includes('--stats')){
         (mdLinks(ruta, (options = { validate: true })).then((res) =>{console.table(totalLink(res))}))
@@ -22,5 +22,6 @@ const cli = (ruta,arg) =>{
         }
     
 }
+
 
 cli(ruta,arg)

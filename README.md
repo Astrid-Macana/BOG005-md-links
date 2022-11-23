@@ -61,12 +61,12 @@ utiliza los siguientes comandos
 
  * 2 . si ademas de la informacion anterior neceitas saber el estado de los link de tus archivos Markdown ingresa
        el siguiente comando mdlink --validate
-       [ruta](./imagenes/validate.PNG)
+       [--validate](./imagenes/validate.PNG)
 
  * 3 . si quieres saber cuantos link hay en tu directorio o archivo ,y cuantos unicos ingresa el siguiente comando  
        mdlink --stats
-       [ruta](./imagenes/stats.PNG)
+       [--stats](./imagenes/stats.PNG)
 
  * 4 . por ultimo si deseas saber cuantos links estan rotos utiliza el comando mdlink --stats --validate         
-       [ruta](./imagenes/broken.PNG)
+       [--stats--validate](./imagenes/broken.PNG)
 

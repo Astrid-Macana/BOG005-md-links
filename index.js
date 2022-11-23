@@ -20,7 +20,7 @@ function mdLinks(pathUser, options = { validate: false }) {
     })
 }
 
-   mdLinks(ruta, (options = { validate: false }))
+   mdLinks(ruta)
    .then((res) => res)
    .catch((err) => err);
 

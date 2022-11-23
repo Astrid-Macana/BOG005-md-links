@@ -8,17 +8,17 @@ const ruta = process.argv[2];
 
 //Comprobar sincrónicamente si existe path
 
-function existePath(path){
-  const pathExiste = fs.existsSync(path);
-   if (pathExiste) {
-    return true
+// function existePath(path){
+//   const pathExiste = fs.existsSync(path);
+//    if (pathExiste) {
+//     return true
     
-   } else{
-    console.error("la ruta no existe");
+//    } else{
+//     console.error("la ruta no existe");
 
-   }
+//    }
   
-}
+// }
 // console.log(existePath(ruta));
 
 //evRuta= evaluando la ruta
@@ -28,8 +28,8 @@ const rutAbsolut =(mypath)=>{
   const cvRut = path.resolve(mypath);
   return cvRut;
  } 
- const cvRut= mypath;
- return cvRut;
+//  const cvRut= mypath;
+//  return cvRut;
 }
 // console.log("esta es mi ruta aabsoluta",rutAbsolut(ruta));
 

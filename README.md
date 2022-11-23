@@ -50,22 +50,23 @@ Se llevo acbo un flujograma que fuese la guia para realizar las pequeñas partes
 [Diagrama Cli](./imagenes/diagramcomandos.png)
  
 ## 5 Instalación
-ingrse en la terminal el siguiente comando para hacer uso de la libreria:
-
+ingrese en la terminal el siguiente comando para hacer uso de la libreria:
+   npm i md-links-astridmacana
 ## 6 Guia de uso
 utiliza los siguientes comandos
  * 1 . si necesitas conocer la ruta de donde proviene el link y informacion sobre este ingresa la ruta ,
        en la terminal se visualizara la siguiente imagen:
+       md-links <path-to-file> [options]
        [ruta](./imagenes/ruta.PNG)
 
  * 2 . si ademas de la informacion anterior neceitas saber el estado de los link de tus archivos Markdown ingresa
        el siguiente comando mdlink --validate
-       [ruta](./imagenes/ruta.PNG)
+       [ruta](./imagenes/validate.PNG)
 
  * 3 . si quieres saber cuantos link hay en tu directorio o archivo ,y cuantos unicos ingresa el siguiente comando  
        mdlink --stats
-       [ruta](./imagenes/ruta.PNG)
+       [ruta](./imagenes/stats.PNG)
 
  * 4 . por ultimo si deseas saber cuantos links estan rotos utiliza el comando mdlink --stats --validate         
-       [ruta](./imagenes/ruta.PNG)
+       [ruta](./imagenes/broken.PNG)
 

@@ -1,6 +1,7 @@
 {
-  "name": "md-links",
+  "name": "md-links-astridmacana",
   "version": "0.1.0",
+  "description": "Libreria que te permite obtener las estadisticas de los link de tus archivos markdown",
   "engines": {
     "node": ">=14.x"
   },
@@ -10,9 +11,20 @@
     "user": "0.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest "
   },
   "devDependencies": {
     "jest": "^29.3.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Astrid-Macana/BOG005-md-links.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Astrid-Macana/BOG005-md-links/issues"
+  },
+  "homepage": "https://github.com/Astrid-Macana/BOG005-md-links#readme"
 }
